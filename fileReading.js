@@ -29,11 +29,10 @@ input.addEventListener(
       });
       var string = '';
       var arrayrepeats = [];
-      var arraysteps = [];
       var num = 0;
       var repeatVisited = 0;
-
       var numSteps = 0;
+      var numTurns = 0;
       for (var k = 0; k < commands_Array.length; k++) {
         var words = commands_Array[k].split(' ');
         console.log(words);
@@ -73,11 +72,11 @@ input.addEventListener(
             break;
           case 'TURN':
             var turns = words[1].replace(/[^\x20-\x7E]/gim, '');
-            string += "console.log('Turn " + turns + "')";
-            for (var j = 1; j <= turns; j++) {
-              circle.rotation += 1;
-            }
-
+            string += 'var turns' + numTurns + ' = ' + turns + '; ';
+            string +=
+              'for (var j = 1; j <= turns' +
+              numTurns +
+              ' ; j++ ){ circle.rotation += 1; } ';
             break;
         }
       }
