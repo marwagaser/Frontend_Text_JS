@@ -13,17 +13,27 @@ function init() {
   //Update stage will render next frame
   stage.update();
 }
-
+var key = null;
+var captureTime = null;
+var MouseClick = null;
+document.onmousedown = myMouseDownHandler;
+document.addEventListener('keydown', isKeyClicked);
+function myMouseDownHandler() {
+  MouseClick = Math.floor(Date.now() / 1000);
+}
+function isKeyClicked(e) {
+  captureTime = Math.floor(Date.now() / 1000);
+  key = e.key;
+  console.log(e.key);
+}
 var commands_Array = [];
 const input = document.querySelector('input[type=file]');
 input.addEventListener(
   'change',
   function(e) {
-    console.log(input.files);
     const reader = new FileReader();
     reader.onload = function() {
       // call this once reading finished this is an onload callback
-      console.log(reader.result);
       const lines = reader.result.split('\n').map(function(line) {
         commands_Array.push(line);
       });
@@ -35,11 +45,12 @@ input.addEventListener(
       var numTurns = 0;
       for (var k = 0; k < commands_Array.length; k++) {
         var words = commands_Array[k].split(' ');
-        console.log(words);
+
         var theWord = words[0].replace(/[^\x20-\x7E]/gim, '');
+
         switch (theWord) {
           case 'REPEAT':
-            var times = words[1];
+            var times = words[1].replace(/[^\x20-\x7E]/gim, '');
             arrayrepeats.push(times);
             string +=
               'for (var x' +
@@ -68,7 +79,8 @@ input.addEventListener(
             string +=
               'for (var j = 1; j <= steps' +
               numSteps +
-              ' ; j++ ){ circle.x += 1; } ';
+              ' ; j++ ){ console.log(MouseClick); circle.x += 1; } ';
+
             break;
           case 'TURN':
             var turns = words[1].replace(/[^\x20-\x7E]/gim, '');
@@ -78,6 +90,56 @@ input.addEventListener(
               numTurns +
               ' ; j++ ){ circle.rotation += 1; } ';
             break;
+          case 'IF':
+            if (words[1].replace(/[^\x20-\x7E]/gim, '') == 'Key') {
+              var theKey = words[words.length - 1].replace(
+                /[^\x20-\x7E]/gim,
+                ''
+              );
+              if (words.length < 5)
+                if (!(theKey == 'space') && !(theKey == 'any')) {
+                  string +=
+                    'if (key != null && key == ' +
+                    theKey +
+                    ' && captureTime != null && ' +
+                    Math.abs(captureTime - Math.floor(Date.now() / 1000)) +
+                    '<20 )';
+                } else if (theKey == 'space') {
+                  var theSpace = ' ';
+                  string +=
+                    'if (key != null && key == " " && captureTime != null && ' +
+                    Math.abs(captureTime - Math.floor(Date.now() / 1000)) +
+                    '<20 )';
+                } else if (theKey == 'any') {
+                  string +=
+                    'if (captureTime != null && ' +
+                    Math.abs(captureTime - Math.floor(Date.now() / 1000)) +
+                    '<20 )';
+                } else {
+                  theKey = words[4].replace(/[^\x20-\x7E]/gim, '');
+                  var theDirection;
+                  if (theKey == 'down') {
+                    theDirection = 'ArrowDown';
+                  } else if (theKey == 'up') {
+                    theDirection = 'ArrowUp';
+                  } else if (theKey == 'right') {
+                    theDirection = 'ArrowRight';
+                  } else {
+                    theDirection = 'ArrowLeft';
+                  }
+                  string +=
+                    'if (key != null && key == ' +
+                    theDirection +
+                    ' && captureTime != null && ' +
+                    Math.abs(captureTime - Math.floor(Date.now() / 1000)) +
+                    ' < 20 )';
+                }
+            } else if (words[1].replace(/[^\x20-\x7E]/gim, '') == 'Mouse') {
+              string +=
+                'if ( MouseClick != null && ' +
+                Math.abs(MouseClick - Math.floor(Date.now() / 1000)) +
+                ' < 0.01 )';
+            }
         }
       }
       var repeats = '';

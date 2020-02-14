@@ -1,4 +1,4 @@
-REPEAT 10
+IF Mouse Down
 BEGIN
-TURN 10
+MOVE 10
 END
