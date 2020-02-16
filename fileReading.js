@@ -1,10 +1,16 @@
 let sprite;
+let sprite2;
 function init() {
   stage = new createjs.Stage('myCanvas');
   console.log("init");
   const image = new Image();
   image.src = './sprite1.png';
   image.onload = handleImageLoad;
+
+  const image2 = new Image();
+  image2.src = './sprite2.png';
+  image2.onload = handleImageLoad2;
+
 }
 
 function handleImageLoad(event) {
@@ -17,6 +23,19 @@ function handleImageLoad(event) {
   stage.addChild(sprite);
   stage.update();
 }
+
+
+function handleImageLoad2(event) {
+  const image2 = event.target;
+  sprite2 = new createjs.Bitmap(image2);
+  sprite2.scaleX = 0.2;
+  sprite2.scaleY = 0.2;
+  sprite2.x = 380;
+  sprite2.y = 50;
+  stage.addChild(sprite2);
+  stage.update();
+}
+
 
 var key = null;
 var captureTime = null;
