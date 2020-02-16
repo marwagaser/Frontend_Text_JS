@@ -1,0 +1,39 @@
+.side-margins
+{
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+.top-margin
+{
+	margin-top: 2%;
+}
+
+
+.round-border-black
+{
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.light-blue-background-color
+{
+  background-color: lightblue;
+}
+
+.white
+{
+	color: white;
+}
+
+ button.file-upload > input[type='file'] {
+        cursor: pointer;
+        position: absolute;
+        font-size: 0;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        height: 100%;
+        width: 100%;
+    }
