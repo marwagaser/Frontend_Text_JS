@@ -1,63 +1,69 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <meta charset="UTF-8" />
 
-    <script src="createjs.min.js"></script>
-    <script src="tweenjs.min.js"></script>
-    <script src="easeljs.min.js"></script>
-    <script src="createjs.js"></script>
-    <script src="https://code.createjs.com/easeljs-0.8.0.min.js"></script>
-    
-    <link rel="stylesheet" href="foundation.css">
-    <link rel="stylesheet" href="app.css">
+<head>
+        <meta charset="UTF-8" />
 
+        <script src="createjs.min.js"></script>
+        <script src="tweenjs.min.js"></script>
+        <script src="easeljs.min.js"></script>
+        <script src="https://code.createjs.com/easeljs-0.8.0.min.js"></script>
 
-  </head>
-
- <body   class="side-margins2 top-margin light-blue-background-color" onload="init();">
-  
-
-<!----------------------------------BUTTONS AND FILE UPLOADING---------------------------------------------------------->
- <div class=" grid-x grid-margin-x"> <!--Start of First Row-->
-  
-
-    <div class="columns large-1 medium-6 small-6"> <!--Start of Second Col-->
-            <button type="button"  onclick="GreenButtonClicked();" class="success button" style="color: white">Start</button>
-    </div>
-
-    <div class="columns large-3 medium-6 small-6"> <!--Start of Second Col-->
-            <button type="button" class=" alert button" onclick="init();"  style="color: white">Stop</button>
-    </div>
+        <link rel="stylesheet" href="foundation.css">
+        <link rel="stylesheet" href="app.css">
 
 
- </div>  <!--End of First Row-->
-<!-----------------------------------CANVAS----------------------------------------------------------------------------->
- <div class="grid-x grid-margin-x"><!--Start of Second Row-->
-  
-  <div class="columns large-6 medium-12 small-12 round-border-black"  >
-         <canvas id="myCanvas" width="400" height="600"></canvas>
-  </div>
+</head>
 
-  <div class=" side-margins3 columns large-5 medium-12 small-12"  >
-
-  <h4 style="color: white"><b>Type your program.<b></h4>
-  <input type="text" class="height" id="text" name="text">
-   <button type="button"  onclick="" class="success button" style="color: white">Submit</button>
+<body class="side-margins2 top-margin light-blue-background-color">
 
 
-  </div>
+        <!----------------------------------BUTTONS AND FILE UPLOADING---------------------------------------------------------->
+        <div class=" grid-x grid-margin-x">
+                <!--Start of First Row-->
+
+
+                <div class="columns large-1 medium-6 small-6">
+                        <!--Start of Second Col-->
+                        <button type="button" onclick="GreenButtonClicked();" class="success button"
+                                style="color: white">Start</button>
+                </div>
+
+                <div class="columns large-3 medium-6 small-6">
+                        <!--Start of Second Col-->
+                        <button type="button" class=" alert button" onclick="init();" style="color: white">Stop</button>
+                </div>
+
+
+        </div>
+        <!--End of First Row-->
+        <!-----------------------------------CANVAS----------------------------------------------------------------------------->
+        <div class="grid-x grid-margin-x">
+                <!--Start of Second Row-->
+
+                <div class="columns large-6 medium-12 small-12 round-border-black">
+                        <canvas id="myCanvas" width="400" height="600"></canvas>
+                </div>
+                
+                <div class=" side-margins3 columns large-5 medium-12 small-12">
+
+                        <h4 style="color: white"><b>Type your program.</b></h4>
+                        <textarea class="height" id="parsed-text" name="text" rows="2"></textarea>
+                        <button type="button" onclick="processText()" class="success button"
+                                style="color: white">Submit</button>
+
+
+                </div>
 
 
 
 
 
- </div>
-<!--------------------------------------------------------------------------------------------------------------------->
-
-
- </body>
+        </div>
+        <!--------------------------------------------------------------------------------------------------------------------->
+        <script src="fileReading.js"></script>
+</body>
 
 
 
