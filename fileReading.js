@@ -169,7 +169,7 @@ input.addEventListener(
               string +=
                 'if (key != null && key ==' +
                 theDirection +
-                '&& started == true)';
+                ' && started == true)';
             }
         }
       }
