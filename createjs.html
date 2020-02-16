@@ -7,15 +7,53 @@
     <script src="createjs.min.js"></script>
     <script src="tweenjs.min.js"></script>
     <script src="easeljs.min.js"></script>
-    <!-- <script src="createjs.js"></script> -->
+    <script src="createjs.js"></script>
+    <script src="https://code.createjs.com/easeljs-0.8.0.min.js"></script>
+    
+    <link rel="stylesheet" href="foundation.css">
+    <link rel="stylesheet" href="app.css">
+
+
   </head>
 
-  <body onload="init();">
-    <canvas id="demoCanvas" width="800" height="800"></canvas>
-    <button onclick="GreenButtonClicked()" style="float: left;">
-      Click me
+ <body   class="side-margins top-margin light-blue-background-color" onload="init();">
+  
+
+<!----------------------------------BUTTONS AND FILE UPLOADING---------------------------------------------------------->
+ <div class="grid-x grid-margin-x"> <!--Start of First Row-->
+  
+   <!-- <div class="columns large-6 medium-6 small-6"> 
+    <button class="file-upload button">Upload
+    <input type="file" name="files"/>
     </button>
-    <input type="file" />
     <script src="fileReading.js"></script>
-  </body>
+   </div> -->
+
+    <div class="columns large-2 medium-6 small-6"> <!--Start of Second Col-->
+            <button type="button"  onclick="GreenButtonClicked();" class="success button" style="color: white">Start</button>
+    </div>
+
+    <div class="columns large-3 medium-6 small-6"> <!--Start of Second Col-->
+            <button type="button" class=" alert button" onclick="init();"  style="color: white">Stop</button>
+    </div>
+
+
+ </div>  <!--End of First Row-->
+<!-----------------------------------CANVAS----------------------------------------------------------------------------->
+ <div class="grid-x grid-margin-x"><!--Start of Second Row-->
+  
+  <div class="columns large-12 medium-12 small-12 round-border-black"  >
+         <canvas id="myCanvas" width="800" height="600"></canvas>
+  </div>
+
+ </div>
+<!--------------------------------------------------------------------------------------------------------------------->
+
+
+ </body>
+
+
+
+
+
 </html>

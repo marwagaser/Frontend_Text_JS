@@ -1,23 +1,29 @@
+        var stage;
+        var image;
+        var bitmap;
 
-var circle;
+        function init() {
+            
 
-function init() {
-        
-     //Create a stage by getting a reference to the canvas
-    stage = new createjs.Stage("demoCanvas");
-    //Create a Shape DisplayObject.
-    circle = new createjs.Shape();
-    circle.graphics.beginFill("red").drawRect(0, 0, 40, 40);
-    //Set position of Shape instance.
-    circle.x = circle.y = 50;
-    //Add Shape instance to stage display list.
-    stage.addChild(circle);
-    //Update stage will render next frame
-    stage.update();
+            stage = new createjs.Stage("myCanvas");
 
- }
+            var image = new Image();
+            image.src = "sprite1.png";
+            image.onload = handleImageLoad;
+        }
 
-var steps = ["Change Y by: 100"];
+        function handleImageLoad(event) {
+            var image = event.target;
+            var bitmap = new createjs.Bitmap(image);
+            bitmap.scaleX=0.5;
+            bitmap.scaleY=0.5;
+            bitmap.x = 50;
+            bitmap.y= 50;
+            stage.addChild(bitmap);
+            stage.update();
+        }
+      
+ var steps = ["Change Y by: 100"];
 
 
 //var steps = ["MOVE 10", "Change X by: 45", "TURN 45","Set X by:"];
@@ -33,20 +39,21 @@ function GreenButtonClicked(){
       
       console.log(times);
       if(command.includes("MOVE"))
-        for (var j = 1; j <=times; j++){circle.x+=1;}
+        bitmap.x+=times;
      
       if(command.includes("TURN"))
-        for(var j = 1 ; j<=times ; j++) {circle.rotation+=1;}
-
-      if(command.includes("Set X by:"))
+           bitmap.rotation+=times;
 
 
       if(command.includes("Change X by:"))
-         for(var j = 1 ; j<=times ; j++) {circle.x++;}
+           bitmap.x+=times;
 
 
       if(command.includes("Change Y by:"))
-         for(var j = 1 ; j<=times ; j++) {circle.y++;}
+         bitmap.y+=times;
+
+      if(command.includes("POINT"))
+         bitmap.rotation = times; 
 
         
       
@@ -71,6 +78,7 @@ function GreenButtonClicked(){
 
 
 }// end of Green Button Clicked
+
 
 
 
