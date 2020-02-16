@@ -14,16 +14,17 @@
 
         function handleImageLoad(event) {
             var image = event.target;
-            var bitmap = new createjs.Bitmap(image);
+            bitmap = new createjs.Bitmap(image);
             bitmap.scaleX=0.5;
             bitmap.scaleY=0.5;
             bitmap.x = 50;
             bitmap.y= 50;
             stage.addChild(bitmap);
+            console.log(bitmap);
             stage.update();
         }
       
- var steps = ["Change Y by: 100"];
+ var steps = ["Change Y by: 1"];
 
 
 //var steps = ["MOVE 10", "Change X by: 45", "TURN 45","Set X by:"];
