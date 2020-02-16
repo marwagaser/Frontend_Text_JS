@@ -33,10 +33,13 @@ function GreenButtonClicked() {
 
     if (command.includes("TURN")) bitmap.rotation += times;
 
+    
     if (command.includes("Change X by:")) bitmap.x += times;
 
     if (command.includes("Change Y by:")) bitmap.y += times;
-
+    
+    if (command.includes("Set X by:")) bitmap.x = times;
+    if (command.includes("Set Y by:")) bitmap.y = times;
     if (command.includes("POINT")) bitmap.rotation = times;
 
     //createjs.Tween.get(circle).to({x: 275, y: 200}

@@ -1,15 +1,15 @@
-var circle;
+var sprite;
 
 function init() {
   //Create a stage by getting a reference to the canvas
-  stage = new createjs.Stage('demoCanvas');
+  stage = new createjs.Stage("demoCanvas");
   //Create a Shape DisplayObject.
-  circle = new createjs.Shape();
-  circle.graphics.beginFill('red').drawRect(0, 0, 40, 40);
+  sprite = new createjs.Shape();
+  sprite.graphics.beginFill("red").drawRect(0, 0, 40, 40);
   //Set position of Shape instance.
-  circle.x = circle.y = 50;
+  sprite.x = sprite.y = 50;
   //Add Shape instance to stage display list.
-  stage.addChild(circle);
+  stage.addChild(sprite);
   //Update stage will render next frame
   stage.update();
 }
@@ -17,7 +17,7 @@ var key = null;
 var captureTime = null;
 var MouseClick = null;
 document.onmousedown = myMouseDownHandler;
-document.addEventListener('keydown', isKeyClicked);
+document.addEventListener("keydown", isKeyClicked);
 function myMouseDownHandler() {
   MouseClick = Math.floor(Date.now() / 1000);
 }
@@ -27,124 +27,144 @@ function isKeyClicked(e) {
   console.log(e.key);
 }
 var commands_Array = [];
-const input = document.querySelector('input[type=file]');
+const input = document.querySelector("input[type=file]");
 input.addEventListener(
-  'change',
+  "change",
   function(e) {
     const reader = new FileReader();
     reader.onload = function() {
       // call this once reading finished this is an onload callback
-      const lines = reader.result.split('\n').map(function(line) {
+      const lines = reader.result.split("\n").map(function(line) {
         commands_Array.push(line);
       });
-      var string = '';
+      var string = "";
       var arrayrepeats = [];
       var num = 0;
       var repeatVisited = 0;
       var numSteps = 0;
       var numTurns = 0;
       for (var k = 0; k < commands_Array.length; k++) {
-        var words = commands_Array[k].split(' ');
+        var words = commands_Array[k].split(" ");
 
-        var theWord = words[0].replace(/[^\x20-\x7E]/gim, '');
+        var theWord = words[0].replace(/[^\x20-\x7E]/gim, "").toUpperCase();
 
         switch (theWord) {
-          case 'REPEAT':
-            var times = words[1].replace(/[^\x20-\x7E]/gim, '');
+          case "CHANGE":
+            let commandParams = words.split(" ");
+
+            string += `sprite.${commandParams[1].toLowerCase()} += ${
+              commandParams[2]
+            }`;
+            break;
+          case "SET":
+            let commandParams = words.split(" ");
+            string += `sprite.${commandParams[1].toLowerCase()} += ${
+              commandParams[2]
+            }`;
+            break;
+          case "GO":
+            let commandParams = words.split(" ");
+            let params = commandParams[3].split(",");
+            string += `sprite.x = ${params[0]};
+            sprite.y = ${params[1]};
+             `;
+            break;
+          case "REPEAT":
+            var times = words[1].replace(/[^\x20-\x7E]/gim, "");
             arrayrepeats.push(times);
             string +=
-              'for (var x' +
+              "for (var x" +
               num +
-              ' = 0; ' +
-              'x' +
+              " = 0; " +
+              "x" +
               num +
-              ' < times' +
+              " < times" +
               num +
-              ' ; x' +
+              " ; x" +
               num +
-              '++ )';
+              "++ )";
             repeatVisited = repeatVisited + 1;
             num = num + 1;
             //repeat a command
             break;
-          case 'BEGIN':
-            string += '{ ';
+          case "BEGIN":
+            string += "{ ";
             break;
-          case 'END':
-            string += '} ';
+          case "END":
+            string += "} ";
             break;
-          case 'MOVE':
-            var steps = words[1].replace(/[^\x20-\x7E]/gim, '');
-            string += 'var steps' + numSteps + ' = ' + steps + '; ';
+          case "MOVE":
+            var steps = words[1].replace(/[^\x20-\x7E]/gim, "");
+            string += "var steps" + numSteps + " = " + steps + "; ";
             string +=
-              'for (var j = 1; j <= steps' +
+              "for (var j = 1; j <= steps" +
               numSteps +
-              ' ; j++ ){ console.log(MouseClick); circle.x += 1; } ';
+              " ; j++ ){ console.log(MouseClick); sprite.x += 1; } ";
 
             break;
-          case 'TURN':
-            var turns = words[1].replace(/[^\x20-\x7E]/gim, '');
-            string += 'var turns' + numTurns + ' = ' + turns + '; ';
+          case "TURN":
+            var turns = words[1].replace(/[^\x20-\x7E]/gim, "");
+            string += "var turns" + numTurns + " = " + turns + "; ";
             string +=
-              'for (var j = 1; j <= turns' +
+              "for (var j = 1; j <= turns" +
               numTurns +
-              ' ; j++ ){ circle.rotation += 1; } ';
+              " ; j++ ){ sprite.rotation += 1; } ";
             break;
-          case 'IF':
-            if (words[1].replace(/[^\x20-\x7E]/gim, '') == 'Key') {
+          case "IF":
+            if (words[1].replace(/[^\x20-\x7E]/gim, "") == "Key") {
               var theKey = words[words.length - 1].replace(
                 /[^\x20-\x7E]/gim,
-                ''
+                ""
               );
               if (words.length < 5)
-                if (!(theKey == 'space') && !(theKey == 'any')) {
+                if (!(theKey == "space") && !(theKey == "any")) {
                   string +=
-                    'if (key != null && key == ' +
+                    "if (key != null && key == " +
                     theKey +
-                    ' && captureTime != null && ' +
+                    " && captureTime != null && " +
                     Math.abs(captureTime - Math.floor(Date.now() / 1000)) +
-                    '<20 )';
-                } else if (theKey == 'space') {
-                  var theSpace = ' ';
+                    "<20 )";
+                } else if (theKey == "space") {
+                  var theSpace = " ";
                   string +=
                     'if (key != null && key == " " && captureTime != null && ' +
                     Math.abs(captureTime - Math.floor(Date.now() / 1000)) +
-                    '<20 )';
-                } else if (theKey == 'any') {
+                    "<20 )";
+                } else if (theKey == "any") {
                   string +=
-                    'if (captureTime != null && ' +
+                    "if (captureTime != null && " +
                     Math.abs(captureTime - Math.floor(Date.now() / 1000)) +
-                    '<20 )';
+                    "<20 )";
                 } else {
-                  theKey = words[4].replace(/[^\x20-\x7E]/gim, '');
+                  theKey = words[4].replace(/[^\x20-\x7E]/gim, "");
                   var theDirection;
-                  if (theKey == 'down') {
-                    theDirection = 'ArrowDown';
-                  } else if (theKey == 'up') {
-                    theDirection = 'ArrowUp';
-                  } else if (theKey == 'right') {
-                    theDirection = 'ArrowRight';
+                  if (theKey == "down") {
+                    theDirection = "ArrowDown";
+                  } else if (theKey == "up") {
+                    theDirection = "ArrowUp";
+                  } else if (theKey == "right") {
+                    theDirection = "ArrowRight";
                   } else {
-                    theDirection = 'ArrowLeft';
+                    theDirection = "ArrowLeft";
                   }
                   string +=
-                    'if (key != null && key == ' +
+                    "if (key != null && key == " +
                     theDirection +
-                    ' && captureTime != null && ' +
+                    " && captureTime != null && " +
                     Math.abs(captureTime - Math.floor(Date.now() / 1000)) +
-                    ' < 20 )';
+                    " < 20 )";
                 }
-            } else if (words[1].replace(/[^\x20-\x7E]/gim, '') == 'Mouse') {
+            } else if (words[1].replace(/[^\x20-\x7E]/gim, "") == "Mouse") {
               string +=
-                'if ( MouseClick != null && ' +
+                "if ( MouseClick != null && " +
                 Math.abs(MouseClick - Math.floor(Date.now() / 1000)) +
-                ' < 0.01 )';
+                " < 0.01 )";
             }
         }
       }
-      var repeats = '';
+      var repeats = "";
       for (var w = 0; w < arrayrepeats.length; w++) {
-        repeats += 'var times' + w + ' = ' + arrayrepeats[w] + '; ';
+        repeats += "var times" + w + " = " + arrayrepeats[w] + "; ";
       }
       string = repeats + string;
       console.log(string);
