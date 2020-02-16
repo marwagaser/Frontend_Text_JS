@@ -16,20 +16,14 @@
 
   </head>
 
- <body   class="side-margins top-margin light-blue-background-color" onload="init();">
+ <body   class="side-margins2 top-margin light-blue-background-color" onload="init();">
   
 
 <!----------------------------------BUTTONS AND FILE UPLOADING---------------------------------------------------------->
- <div class="grid-x grid-margin-x"> <!--Start of First Row-->
+ <div class=" grid-x grid-margin-x"> <!--Start of First Row-->
   
-   <!-- <div class="columns large-6 medium-6 small-6"> 
-    <button class="file-upload button">Upload
-    <input type="file" name="files"/>
-    </button>
-    <script src="fileReading.js"></script>
-   </div> -->
 
-    <div class="columns large-2 medium-6 small-6"> <!--Start of Second Col-->
+    <div class="columns large-1 medium-6 small-6"> <!--Start of Second Col-->
             <button type="button"  onclick="GreenButtonClicked();" class="success button" style="color: white">Start</button>
     </div>
 
@@ -42,9 +36,22 @@
 <!-----------------------------------CANVAS----------------------------------------------------------------------------->
  <div class="grid-x grid-margin-x"><!--Start of Second Row-->
   
-  <div class="columns large-12 medium-12 small-12 round-border-black"  >
-         <canvas id="myCanvas" width="800" height="600"></canvas>
+  <div class="columns large-6 medium-12 small-12 round-border-black"  >
+         <canvas id="myCanvas" width="400" height="600"></canvas>
   </div>
+
+  <div class=" side-margins3 columns large-5 medium-12 small-12"  >
+
+  <h4 style="color: white"><b>Type your program.<b></h4>
+  <input type="text" class="height" id="text" name="text">
+   <button type="button"  onclick="" class="success button" style="color: white">Submit</button>
+
+
+  </div>
+
+
+
+
 
  </div>
 <!--------------------------------------------------------------------------------------------------------------------->

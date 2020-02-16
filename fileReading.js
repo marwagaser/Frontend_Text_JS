@@ -16,6 +16,8 @@ function init() {
 var key = null;
 var captureTime = null;
 var MouseClick = null;
+var startExecution = false;
+var started = false;
 document.onmousedown = myMouseDownHandler;
 document.addEventListener("keydown", isKeyClicked);
 function myMouseDownHandler() {
@@ -24,7 +26,10 @@ function myMouseDownHandler() {
 function isKeyClicked(e) {
   captureTime = Math.floor(Date.now() / 1000);
   key = e.key;
-  console.log(e.key);
+  if (started == false) {
+    started = true;
+    //set to true after loop starts
+  }
 }
 var commands_Array = [];
 const input = document.querySelector("input[type=file]");
@@ -160,6 +165,32 @@ input.addEventListener(
                 Math.abs(MouseClick - Math.floor(Date.now() / 1000)) +
                 " < 0.01 )";
             }
+          case 'WHEN':
+            let pressedKey = words[1].replace(/[^\x20-\x7E]/gim, '');
+            if (!(pressedKey == 'space') && !(pressedKey == 'any')) {
+              string +=
+                'if (key != null && key == pressedKey && started == true)';
+            } else if (pressedKey == 'space') {
+              string += 'if (key != null && key == " " && started == true)';
+            } else if (pressedKey == 'any') {
+              string += 'if(started == true)';
+            } else {
+              pressedKey = words[2].replace(/[^\x20-\x7E]/gim, '');
+              var theDirection;
+              if (pressedKey == 'down') {
+                theDirection = 'ArrowDown';
+              } else if (pressedKey == 'up') {
+                theDirection = 'ArrowUp';
+              } else if (pressedKey == 'right') {
+                theDirection = 'ArrowRight';
+              } else {
+                theDirection = 'ArrowLeft';
+              }
+              string +=
+                'if (key != null && key ==' +
+                theDirection +
+                ' && started == true)';
+            }
         }
       }
       var repeats = "";
@@ -167,6 +198,7 @@ input.addEventListener(
         repeats += "var times" + w + " = " + arrayrepeats[w] + "; ";
       }
       string = repeats + string;
+      string += 'started = false';
       console.log(string);
       var func = new Function(string);
       func();
