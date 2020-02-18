@@ -6,7 +6,7 @@ const parsePrimitiveBlock = block => {
       result += "IFGREENFLAGCLICKED\n";
       break;
     case "event_whenkeypressed":
-      result += "IF " + block.fields.KEY_OPTION[0] + " CLICKED\n";
+      result += "IF " + block.fields.KEY_OPTION[0] + " PRESSED\n";
       break;
     case "motion_movesteps":
       result += "MOVE " + block.inputs.STEPS[1][1] + "\n";

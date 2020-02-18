@@ -18,10 +18,11 @@
         <div class="row h-75">
                 <div class="col-sm-12 col-md-6">
                         <div class="mb-5 d-flex">
-
-                                <a class="ml-auto" onclick="init()">
-                                        <img src="./images/flag.png" />
-                                </a>
+                                <div class="ml-auto">
+                                        <button class="btn" id="green-flag">
+                                                <img src="./images/flag.png" />
+                                        </button>
+                                </div>
 
                         </div>
                         <div class="bg-white">
@@ -77,6 +78,9 @@
         <script src="./scratch-parser/parseCondition.js"></script>
         <script src="./scratch-parser/parsePrimitiveBlock.js"></script>
         <script src="./scratch-parser/ScratchParser.js"></script>
+        <!-- S2S PARSER-->
+        <script src="./s2s-parser/eventTracker.js"></script>
+        <script src="./s2s-parser/S2sParser.js"></script>
         <!-- INTERFACE SETUP-->
         <script src="readTextAreas.js"></script>
         <script src="initCanvas.js"></script>

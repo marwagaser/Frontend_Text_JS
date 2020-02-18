@@ -2,6 +2,8 @@ class S2sParser {
   constructor(intermediateSyntax) {
     this.intermediateSyntax = intermediateSyntax;
     this.commands = intermediateSyntax.split("\n");
+    this.flagTriggered = false;
+    this.keyTriggered = false;
   }
 
   get syntax() {
@@ -9,13 +11,20 @@ class S2sParser {
   }
 
   parseLines() {
+    console.log("parsing lines here");
     let js = "";
-    let currentCommand = commands.shift().trim();
+    let currentCommand = this.commands.shift().trim();
+    this.handleTriggers(currentCommand);
+    // if(this.commands.length > 0){
+    //   currentCommand = this.commands.shift().trim();  
+    // }else{
+    //   currentCommand = null;
+    // }
+    
     // Counter used for enumerating different possible values of loop indices
     // for example after each loop we construct a new variable name index1, index2, index3, etc.
     let indexCounter = 1;
-    if (currentCommand == "IFGREENFLAGCLICKED") {
-    }
+    
     while (currentCommand != null) {
       let commandParams = currentCommand.split(" ");
       switch (commandParams[0]) {
@@ -42,36 +51,45 @@ class S2sParser {
           break;
         // Basic animation cases
         case "MOVE":
-          
-        window.addEventListener('mouseup', e => {
-          if (isDrawing === true) {
-            drawLine(context, x, y, e.clientX - rect.left, e.clientY - rect.top);
-            x = 0;
-            y = 0;
-            isDrawing = false;
-          }
-        }); ":
-          js += `avatar.x += ${commandParams[1]}`;
+          js += `avatar.x += ${commandParams[1]};
+          `;
           break;
         case "TURN":
-          js += `avatar.rotation += ${commandParams[1]};
-          break;`;
+          js += `avatar.orientation += ${commandParams[1]};
+          `;
+          break;
         // Control struct cases
         case "REPEAT":
           js += `for(let index${indexCounter} = 0; index${indexCounter} < ${commandParams[1]}; index${indexCounter}++)`;
+          indexCounter++;
           break;
         case "IF":
           parseCondition(commandParams);
-        case "IFGREENFLAGCLICKED":
+          break;
       }
+      currentCommand = this.commands.shift();
     }
+    return js;
   }
+
 
   parseGoCommand(commandParams) {
     let values = commandParams[3].split(",");
     return `avatar.x = ${params[0]};
         avatar.y = ${params[1]};
          `;
+  }
+
+  handleTriggers(command){
+    if (command === "IFGREENFLAGCLICKED") {
+      this.flagTriggered = true;
+    }else{
+      if(command.endsWith('PRESSED')){
+        this.keyTriggered = command[1];
+      }else{
+        throw new Error("Could not find an event to trigger input code. Either IFGREENFLAGCLICKED or a key press is necessary in the beginning");
+      }
+    }
   }
 
   parseCondition(commandParams) {
