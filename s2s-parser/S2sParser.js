@@ -11,16 +11,9 @@ class S2sParser {
   }
 
   parseLines() {
-    console.log("parsing lines here");
     let js = "";
     let currentCommand = this.commands.shift().trim();
     this.handleTriggers(currentCommand);
-    // if(this.commands.length > 0){
-    //   currentCommand = this.commands.shift().trim();  
-    // }else{
-    //   currentCommand = null;
-    // }
-    
     // Counter used for enumerating different possible values of loop indices
     // for example after each loop we construct a new variable name index1, index2, index3, etc.
     let indexCounter = 1;

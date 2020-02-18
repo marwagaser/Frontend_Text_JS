@@ -12,8 +12,13 @@ function executeScratchJSON() {
   try{
     const scratchParser = new ScratchParser(projectSyntax);
     const s2sParser = new S2sParser(scratchParser.syntax);
+    const syntax = s2sParser.syntax;
     if(s2sParser.flagTriggered){
-      document.querySelector('#green-flag').addEventListener('click', new Function(s2sParser.syntax));
+      document.querySelector('#green-flag').addEventListener('click', () => {
+        const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+        const execute = new AsyncFunction(syntax);
+        execute();
+      });
     }
   }catch(e){
     alert(e);
@@ -29,7 +34,6 @@ function executeParsedText() {
     console.log(syntax);
     if(s2sParser.flagTriggered){
       document.querySelector('#green-flag').addEventListener('click', () =>  {
-        console.log(avatar);
         const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
         const execute = new AsyncFunction(syntax);
         execute();
