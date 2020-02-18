@@ -41,11 +41,13 @@ class S2sParser {
             commandParams[2]
             };
 stage.update();
+await sleep(33);
 `;
           break;
         case "SET":
           js += `avatar.${commandParams[1].toLowerCase()} = ${commandParams[2]};
 stage.update();
+await sleep(33);
 `;
           break;
         case "GO":
@@ -53,14 +55,15 @@ stage.update();
           break;
         // Basic animation cases
         case "MOVE":
-          js += `
-          avatar.x += +${commandParams[1]};
+          js += `avatar.localToGlobal(${commandParams[1]}, 0);
 stage.update();
+await sleep(33);
 `;
           break;
         case "TURN":
           js += `avatar.rotation += ${commandParams[1]};
 stage.update();
+await sleep(33);
 `;
           break;
         // Control struct cases
@@ -82,7 +85,9 @@ stage.update();
     let params = commandParams[3].split(",");
     return `avatar.x = ${params[0]};
 avatar.y = ${params[1]};
-stage.update();` + '\n';
+stage.update();
+await sleep(33);
+`;
   }
 
   handleTriggers(command){

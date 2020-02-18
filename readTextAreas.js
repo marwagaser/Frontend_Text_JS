@@ -30,7 +30,8 @@ function executeParsedText() {
     if(s2sParser.flagTriggered){
       document.querySelector('#green-flag').addEventListener('click', () =>  {
         console.log(avatar);
-        const execute = new Function(syntax);
+        const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+        const execute = new AsyncFunction(syntax);
         execute();
       } );
     }
