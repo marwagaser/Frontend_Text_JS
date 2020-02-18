@@ -1,47 +1,8 @@
-let sprite;
-let sprite2;
-function init() {
-  stage = new createjs.Stage('myCanvas');
-  console.log("init");
-  const image = new Image();
-  image.src = './sprite1.png';
-  image.onload = handleImageLoad;
-
-  const image2 = new Image();
-  image2.src = './sprite2.png';
-  image2.onload = handleImageLoad2;
-
-}
-
-function handleImageLoad(event) {
-  const image = event.target;
-  sprite = new createjs.Bitmap(image);
-  sprite.scaleX = 0.5;
-  sprite.scaleY = 0.5;
-  sprite.x = 10;
-  sprite.y = 10;
-  stage.addChild(sprite);
-  stage.update();
-}
-
-
-function handleImageLoad2(event) {
-  const image2 = event.target;
-  sprite2 = new createjs.Bitmap(image2);
-  sprite2.scaleX = 0.2;
-  sprite2.scaleY = 0.2;
-  sprite2.x = 380;
-  sprite2.y = 50;
-  stage.addChild(sprite2);
-  stage.update();
-}
-
-
-var key = null;
-var captureTime = null;
-var MouseClick = null;
-var startExecution = false;
-var started = false;
+let key = null;
+let captureTime = null;
+let MouseClick = null;
+let startExecution = false;
+let started = false;
 document.onmousedown = myMouseDownHandler;
 document.addEventListener("keydown", isKeyClicked);
 function myMouseDownHandler() {
@@ -56,11 +17,17 @@ function isKeyClicked(e) {
   }
 }
 
+function parseJSON() {
+  const text = document.querySelector('#scratch-json').value;
+  const parser = new ScratchParser(text);
+  console.log(parser.syntax);
+}
+
 function processText() {
   const parsedText = document.querySelector("#parsed-text").value;
   // call this once reading finished this is an onload callback
   const commands = parsedText.split("\n");
-  console.log(commands);  
+  console.log(commands);
   var string = "";
   var num = 0;
   var numSteps = 0;
@@ -208,7 +175,5 @@ function processText() {
   func();
   stage.update();
 }
-
-
 
 init();

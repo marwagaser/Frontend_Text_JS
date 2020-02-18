@@ -16,8 +16,8 @@ function handleImageLoad(event) {
   bitmap = new createjs.Bitmap(image);
   bitmap.scaleX = 0.5;
   bitmap.scaleY = 0.5;
-  bitmap.x = 10;
-  bitmap.y = 10;
+  bitmap.x = 100;
+  bitmap.y = 100;
   stage.addChild(bitmap);
   stage.update();
 }

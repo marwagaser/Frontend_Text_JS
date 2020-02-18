@@ -1,73 +1,86 @@
-<!DOCTYPE html>
-
-<html>
+<html class="h-100">
 
 <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+                crossorigin="anonymous">
 
-        <script src="createjs.min.js"></script>
-        <script src="tweenjs.min.js"></script>
-        <script src="easeljs.min.js"></script>
-        <script src="https://code.createjs.com/easeljs-0.8.0.min.js"></script>
-
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/css/foundation.min.css" integrity="sha256-GSio8qamaXapM8Fq9JYdGNTvk/dgs+cMLgPeevOYEx0= sha384-wAweiGTn38CY2DSwAaEffed6iMeflc0FMiuptanbN4J+ib+342gKGpvYRWubPd/+ sha512-QHEb6jOC8SaGTmYmGU19u2FhIfeG+t/hSacIWPpDzOp5yygnthL3JwnilM7LM1dOAbJv62R+/FICfsrKUqv4Gg==" crossorigin="anonymous">
-        <link rel="stylesheet" href="app.css">
-
-
+        <title>S2S Compiler</title>
 </head>
 
-<body class="side-margins2 top-margin light-blue-background-color">
+<body class="h-100 w-100 jumbotron" onload="init();">
+        <h1 class="display-4">S2S Transformation</h1>
+        <p class="lead">An example of parsing a scratch blocks syntax into an intermediate text which then is used to
+                move
+                sprites in a scratch like environment</p>
+        <div class="row h-75">
+                <div class="col-sm-12 col-md-6">
+                        <div class="mb-5 d-flex">
 
+                                <a class="ml-auto" onclick="init()">
+                                        <img src="./images/flag.png" />
+                                </a>
 
-        <!----------------------------------BUTTONS AND FILE UPLOADING---------------------------------------------------------->
-        <div class=" grid-x grid-margin-x">
-                <!--Start of First Row-->
-
-
-                <div class="columns large-1 medium-6 small-6">
-                        <!--Start of Second Col-->
-                        <button type="button" onclick="GreenButtonClicked();" class="success button"
-                                style="color: white">Start</button>
+                        </div>
+                        <div class="bg-white">
+                                <canvas id="scratch-canvas"></canvas>
+                        </div>
                 </div>
-
-                <div class="columns large-3 medium-6 small-6">
-                        <!--Start of Second Col-->
-                        <button type="button" class=" alert button" onclick="init();" style="color: white">Stop</button>
+                <div class="col-sm-12 col-md-6">
+                        <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tab-list">
+                                        <a class="nav-item nav-link active" aria-control="parsed-text"
+                                                id="parsed-text-tab" data-toggle="tab" role="tab"
+                                                href="#parsed-text">Parsed Text</a>
+                                        <a class="nav-item nav-link" aria-controls="json-object" id="json-object-tab"
+                                                data-toggle="tab" role="tab" href="#json-object">JSON Object</a>
+                                </div>
+                        </nav>
+                        <div class="tab-content h-100" id="nav-tabContent">
+                                <div id="parsed-text" class="tab-pane fade show active h-100" role="tabpanel"
+                                        aria-labelledby="parsed-text-tab">
+                                        <p class="lead"> You can Add the parsed text here</p>
+                                        <textarea id="parsed-text-area" class=" form-control w-100 h-75 mb-2"
+                                                rows=2></textarea>
+                                        <button class="btn btn-dark" onclick="executeParsedText()">Submit Parsed
+                                                Text</button>
+                                </div>
+                                <div id="json-object" role="tabpanel" class="tab-pane fade h-100"
+                                        aria-labelledby="json-object-tab">
+                                        <p class="lead">JSON Object for direct parsing and exection</p>
+                                        <textarea id="json-object-area" class=" form-control w-100 h-75 mb-2"
+                                                rows=2></textarea>
+                                        <button class="btn btn-dark" onclick="executeScratchJSON()"> Submit JSON
+                                                Object</button>
+                                </div>
+                        </div>
                 </div>
-
 
         </div>
-        <!--End of First Row-->
-        <!-----------------------------------CANVAS----------------------------------------------------------------------------->
-        <div class="grid-x grid-margin-x">
-                <!--Start of Second Row-->
-
-                <div class="columns large-6 medium-12 small-12 round-border-black">
-                        <canvas id="myCanvas" width="830" height="600"></canvas>
-                </div>
-                
-                <div class=" side-margins3 columns large-5 medium-12 small-12">
-
-                        <h4 style="color: white"><b>Type your program.</b></h4>
-                        <textarea class="height" id="parsed-text" name="text" rows="2"></textarea>
-                        <button type="button" onclick="processText()" class="success button"
-                                style="color: white">Submit</button>
-
-
-                </div>
-
-
-
-
-
-        </div>
-        <!--------------------------------------------------------------------------------------------------------------------->
+        <!-- VENDOR SCRIPTS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+                integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+                integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+                crossorigin="anonymous"></script>
+        <!-- CREATE JS FILES-->
+        <script src="./createjs/createjs.min.js"></script>
+        <script src="./createjs/tweenjs.min.js"></script>
+        <script src="./createjs/easeljs.min.js"></script>
+        <!-- SCRATCH PARSER-->
+        <script src="./scratch-parser/parseCondition.js"></script>
+        <script src="./scratch-parser/parsePrimitiveBlock.js"></script>
+        <script src="./scratch-parser/ScratchParser.js"></script>
+        <!-- INTERFACE SETUP-->
+        <script src="readTextAreas.js"></script>
+        <script src="initCanvas.js"></script>
         <script src="fileReading.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/js/foundation.min.js" integrity="sha256-mRYlCu5EG+ouD07WxLF8v4ZAZYCA6WrmdIXyn1Bv9Vk= sha384-KzKofw4qqetd3kvuQ5AdapWPqV1ZI+CnfyfEwZQgPk8poOLWaabfgJOfmW7uI+AV sha512-0gHfaMkY+Do568TgjJC2iMAV0dQlY4NqbeZ4pr9lVUTXQzKu8qceyd6wg/3Uql9qA2+3X5NHv3IMb05wb387rA==" crossorigin="anonymous"></script>
 </body>
-
-
-
-
 
 </html>

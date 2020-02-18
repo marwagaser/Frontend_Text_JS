@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html class="h-100">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="createjs.min.js"></script>
+  <script src="tweenjs.min.js"></script>
+  <script src="easeljs.min.js"></script>
+  <title>S2S Compiler</title>
+</head>
+
+<body class="h-100 w-100 jumbotron" onload="init();">
+  <h1 class="display-4">S2S Transformation</h1>
+  <p class="lead">An example of parsing a scratch blocks syntax into an intermediate text which then is used to move
+    sprites in a scratch like environment</p>
+  <div class="row h-75">
+    <div class="col-sm-12 col-md-6">
+      <button class="btn btn-success" onclick="GreenButtonClicked()">
+        Green Flag [FOR NOW]
+      </button>
+      <canvas id="demoCanvas"></canvas>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tab-list">
+          <a class="nav-item nav-link active" aria-control="parsed-text" id="parsed-text-tab" data-toggle="tab"
+            role="tab" href="#parsed-text">Parsed Text</a>
+          <a class="nav-item nav-link" aria-controls="json-object" id="json-object-tab" data-toggle="tab" role="tab"
+            href="#json-object">JSON Object</a>
+        </div>
+      </nav>
+      <div class="tab-content h-100" id="nav-tabContent">
+        <div id="parsed-text" class="tab-pane fade show active h-100" role="tabpanel" aria-labelledby="parsed-text-tab">
+          <p class="lead"> You can Add the parsed text here</p>
+          <textarea id="parsed-text-area" class=" form-control w-100 h-75 mb-2" rows=2></textarea>
+          <button class="btn btn-dark" onclick="executeParsedText()">Submit Parsed Text</button>
+        </div>
+        <div id="json-object" role="tabpanel" class="tab-pane fade h-100" aria-labelledby="json-object-tab">
+          <p class="lead">JSON Object for direct parsing and exection</p>
+          <textarea  id="json-object-area" class=" form-control w-100 h-75 mb-2" rows=2></textarea>
+          <button class="btn btn-dark" onclick="executeScratchJSON()"> Submit JSON Object</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <input type="file" />
+  <script src="readTextAreas.js"></script>
+  <script src="adjustCanvas.js"></script>
+  <script src="fileReading.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

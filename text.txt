@@ -1,4 +1,0 @@
-When space clicked
-BEGIN
-MOVE 10
-END
