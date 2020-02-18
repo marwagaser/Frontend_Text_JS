@@ -1,7 +1,8 @@
 let canvas = document.querySelector('#scratch-canvas');
 fitToContainer(canvas);
-let sprite;
-let sprite2;
+let stage;
+let avatar;
+let apple;
 
 function fitToContainer(canvas){
   // Make it visually fill the positioned parent
@@ -27,22 +28,24 @@ function init() {
 
 function handleImageLoad(event) {
   const image = event.target;
-  sprite = new createjs.Bitmap(image);
-  sprite.scaleX = 0.4;
-  sprite.scaleY = 0.4;
-  sprite.x = 10;
-  sprite.y = 10;
-  stage.addChild(sprite);
+  avatar = new createjs.Bitmap(image);
+  avatar.scaleX = 0.4;
+  avatar.scaleY = 0.4;
+  avatar.x = 90;
+  avatar.y = 50;
+  stage.addChild(avatar);
   stage.update();
 }
 
 function handleImageLoad2(event) {
   const image2 = event.target;
-  sprite2 = new createjs.Bitmap(image2);
-  sprite2.scaleX = 0.2;
-  sprite2.scaleY = 0.2;
-  sprite2.x = 380;
-  sprite2.y = 50;
-  stage.addChild(sprite2);
+  apple = new createjs.Bitmap(image2);
+  apple.scaleX = 0.2;
+  apple.scaleY = 0.2;
+  apple.x = 380;
+  apple.y = 50;
+  stage.addChild(apple);
   stage.update();
 }
+
+init();

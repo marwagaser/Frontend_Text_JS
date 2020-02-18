@@ -40,23 +40,28 @@ class S2sParser {
           js += `avatar.${commandParams[1].toLowerCase()} += ${
             commandParams[2]
             };
-          `;
+stage.update();
+`;
           break;
         case "SET":
           js += `avatar.${commandParams[1].toLowerCase()} = ${commandParams[2]};
-          `;
+stage.update();
+`;
           break;
         case "GO":
           js += parseGoCommand(commandParams);
           break;
         // Basic animation cases
         case "MOVE":
-          js += `avatar.x += ${commandParams[1]};
-          `;
+          js += `
+          avatar.x += +${commandParams[1]};
+stage.update();
+`;
           break;
         case "TURN":
-          js += `avatar.orientation += ${commandParams[1]};
-          `;
+          js += `avatar.rotation += ${commandParams[1]};
+stage.update();
+`;
           break;
         // Control struct cases
         case "REPEAT":
@@ -74,10 +79,10 @@ class S2sParser {
 
 
   parseGoCommand(commandParams) {
-    let values = commandParams[3].split(",");
+    let params = commandParams[3].split(",");
     return `avatar.x = ${params[0]};
-        avatar.y = ${params[1]};
-         `;
+avatar.y = ${params[1]};
+stage.update();` + '\n';
   }
 
   handleTriggers(command){

@@ -28,9 +28,10 @@ function executeParsedText() {
     const syntax = s2sParser.syntax; 
     console.log(syntax);
     if(s2sParser.flagTriggered){
-      document.querySelector('#green-flag').addEventListener('onclick', () =>  {
-        console.log("You really clicked WOW");
-        new Function(syntax).call();
+      document.querySelector('#green-flag').addEventListener('click', () =>  {
+        console.log(avatar);
+        const execute = new Function(syntax);
+        execute();
       } );
     }
   }catch(e){
