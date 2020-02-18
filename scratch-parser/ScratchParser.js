@@ -16,31 +16,6 @@ class ScratchParser {
     return this.parseBlocks();
   }
 
-  static parseSyntax(syntax) {
-    const lines = syntax.split("\n");
-    const root = new TreeNode("root", null);
-    let currentNode = root;
-    for (let line of lines) {
-      const tokens = line.split(" ");
-      switch (tokens[0]) {
-        case "MOVE":
-          currentNode.addChild(
-            new TreeNode("move", currentNode, parseInt(tokens[1]))
-          );
-          break;
-        case "TURN":
-          currentNode.addChild(
-            new TreeNode("turn", currentNode, parseInt(tokens[1]))
-          );
-          break;
-        case "POINT":
-          currentNode.addChild(
-            new TreeNode("point", currentNode, parseInt(tokens[1]))
-          );
-          break;
-      }
-    }
-  }
 
   parseBlocks() {
     let syntax = "";

@@ -31,7 +31,7 @@ function processText() {
   var string = "";
   var num = 0;
   var numSteps = 0;
-  var numTurns = 0;
+  var numTurns = 0; 
   for (var k = 0; k < commands.length; k++) {
     var words = commands[k].split(" ");
 

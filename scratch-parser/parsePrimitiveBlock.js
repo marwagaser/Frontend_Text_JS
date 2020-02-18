@@ -3,7 +3,7 @@ const parsePrimitiveBlock = block => {
   let result = "";
   switch (block.opcode) {
     case "event_whenflagclicked":
-      result += "IFFLAGCLICKED\n";
+      result += "IFGREENFLAGCLICKED\n";
       break;
     case "event_whenkeypressed":
       result += "IF " + block.fields.KEY_OPTION[0] + " CLICKED\n";
