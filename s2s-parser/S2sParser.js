@@ -47,8 +47,8 @@ await sleep(33);
 `;
           break;
         case "GO":
-          js += `avatar.x = ${commandParams[3]};
-avatar.y = ${commandParams[4]};
+          js += `avatar.x = ${commandParams[2]};
+avatar.y = ${commandParams[3]};
 stage.update();
 await sleep(33);
 `;
