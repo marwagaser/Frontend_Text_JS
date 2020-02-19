@@ -22,7 +22,7 @@ class S2sParser {
     // Counter used for enumerating different possible values of loop indices
     // for example after each loop we construct a new variable name index1, index2, index3, etc.
     let indexCounter = 1;
-    
+
     while (currentCommand != null) {
       let commandParams = currentCommand.split(" ");
       switch (commandParams[0]) {
@@ -73,7 +73,7 @@ await sleep(33);
           indexCounter++;
           break;
         case "IF":
-          parseCondition(commandParams);
+          js += this.parseCondition(commandParams);
           break;
         case "ELSE":
           js+='else'
@@ -96,19 +96,17 @@ await sleep(33);
 `;
   }
 
-  handleTriggers(command){
+  handleTriggers(command) {
     if (command === "IFGREENFLAGCLICKED") {
       this.flagTriggered = true;
-    }else{
-      if(command.endsWith('PRESSED')){
+    } else {
+      if (command.endsWith('PRESSED')) {
         this.keyTriggered = command[1];
-      }else{
+      } else {
         throw new Error("Could not find an event to trigger input code. Either IFGREENFLAGCLICKED or a key press is necessary in the beginning");
       }
     }
   }
-
-  parseCondition(commandParams) {
-
-  }
 }
+
+S2sParser.prototype.parseCondition = parseS2sCondition

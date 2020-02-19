@@ -65,7 +65,7 @@ const parseCondition = function (conditionBlock) {
     }
     // parse comparison conditions
     if (conditionBlock.opcode.startsWith("operator")) {
-        result += parseOperator.call(this, conditionBlock);
+        result += parseS2sOperator.call(this, conditionBlock);
     }
     return result;
 }
