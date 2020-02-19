@@ -14,6 +14,11 @@ class S2sParser {
     let js = "";
     let currentCommand = this.commands.shift().trim();
     this.handleTriggers(currentCommand);
+    if(this.commands.length > 0){
+      currentCommand = this.commands.shift();
+    }else{
+      currentCommand = null;
+    }
     // Counter used for enumerating different possible values of loop indices
     // for example after each loop we construct a new variable name index1, index2, index3, etc.
     let indexCounter = 1;
@@ -44,17 +49,20 @@ await sleep(33);
 `;
           break;
         case "GO":
-          js += parseGoCommand(commandParams);
+          js += this.parseGoCommand(commandParams);
           break;
         // Basic animation cases
         case "MOVE":
-          js += `avatar.localToGlobal(${commandParams[1]}, 0);
+          js += `let point${indexCounter} = avatar.localToGlobal(${commandParams[1]}, 0);
+avatar.x = point${indexCounter}.x;
+avatar.y = point${indexCounter}.y;
 stage.update();
 await sleep(33);
 `;
+          indexCounter++;
           break;
         case "TURN":
-          js += `avatar.rotation += ${commandParams[1]};
+          js += `avatar.rotation + ${commandParams[1]} < 360 ? avatar.rotation += ${commandParams[1]} : avatar.rotation += -360 + ${commandParams[1]};
 stage.update();
 await sleep(33);
 `;
@@ -70,6 +78,8 @@ await sleep(33);
         case "ELSE":
           js+='else'
           break;
+        default:
+          throw new Error('Unsupported command ' + currentCommand);
       }
       currentCommand = this.commands.shift();
     }

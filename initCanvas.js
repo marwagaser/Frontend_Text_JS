@@ -30,10 +30,8 @@ function handleAvatarImageLoad(event) {
   avatar = new createjs.Bitmap(avatarImage);
   avatar.scaleX = 1;
   avatar.scaleY = 1;
-  avatar.regX = 50;
-  avatar.regY = 50;
-  avatar.x = 90;
-  avatar.y = 50;
+  avatar.x = 100;
+  avatar.y = 200;
   stage.addChild(avatar);
   stage.update();
 }
