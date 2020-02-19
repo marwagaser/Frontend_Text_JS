@@ -5,10 +5,7 @@ class S2sParser {
     this.flagTriggered = false;
     this.keyTriggered = false;
     this.started = false;
-  }
-
-  get syntax() {
-    return this.parseLines();
+    this.syntax = this.parseLines();
   }
 
   parseLines() {
@@ -90,7 +87,9 @@ await sleep(33);
       }
       currentCommand = this.commands.shift();
     }
+    console.log(js);
     return js;
+
   }
 
 
@@ -107,8 +106,15 @@ await sleep(33);
     if (command === "IFGREENFLAGCLICKED") {
       this.flagTriggered = true;
     } else {
+
       if (command.endsWith('PRESSED')) {
-        this.keyTriggered = command[1];
+        const commandParams = command.split(" ");
+        if (commandParams.length < 4) {
+          this.keyTriggered = commandParams[1];
+        } else {
+          this.keyTriggered = commandParams[1] + " " + commandParams[2];
+        }
+
       } else {
         throw new Error("Could not find an event to trigger input code. Either IFGREENFLAGCLICKED or a key press is necessary in the beginning");
       }
