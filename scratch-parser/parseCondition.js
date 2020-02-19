@@ -56,7 +56,7 @@ const parseCondition = function (conditionBlock) {
             result += "Mouse Down\n";
             break;
         case "sensing_touchingcolor":
-            result += "Touching Color" + conditionBlock.inputs.COLOR[1][1] + "\n";
+            result += "Touching Color " + conditionBlock.inputs.COLOR[1][1] + "\n";
             break;
         case "sensing_keypressed":
             const keyOption = this.blocks[conditionBlock.inputs.KEY_OPTION[1]];

@@ -1,7 +1,7 @@
 class S2sParser {
   constructor(intermediateSyntax) {
     this.intermediateSyntax = intermediateSyntax;
-    this.commands = intermediateSyntax.split("\n");
+    this.commands = intermediateSyntax.trim().split("\n");
     this.flagTriggered = false;
     this.keyTriggered = false;
   }

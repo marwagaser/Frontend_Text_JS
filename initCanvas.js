@@ -41,8 +41,9 @@ function handleAppleImageLoad(event) {
   apple = new createjs.Bitmap(appleImage);
   apple.scaleX = 0.2;
   apple.scaleY = 0.2;
-  apple.x = 380;
-  apple.y = 50;
+  apple.x = 200;
+  apple.y = 200;
+  apple.color = '#820000'
   stage.addChild(apple);
   stage.update(); 
 }
