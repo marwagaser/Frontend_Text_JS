@@ -32,7 +32,7 @@ function parseS2sCondition(commandParams) {
 
       if (!(theKey == "space") && !(theKey == "any")) {
         value +=
-          `lastKeyPress != null &&  new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  200 && lastKeyPress.code == ${theKey} && !lastKeyPress.pressed && setKeyEvent(lastKeyPress)`;
+          `lastKeyPress != null &&  new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  200 && lastKeyPress.code == '${theKey}' && !lastKeyPress.pressed && setKeyEvent(lastKeyPress)`;
       } else if (theKey == "space") {
         value +=
           'lastKeyPress != null && new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  200 && lastKeyPress.code == "space" && !lastKeyPress.pressed && setKeyEvent(lastKeyPress)';
