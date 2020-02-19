@@ -30,7 +30,7 @@ const parsePrimitiveBlock = block => {
       break;
     case "motion_gotoxy":
       result +=
-        "Go TO X,Y " + block.inputs.X[1][1] + " " + block.inputs.Y[1][1] + "\n";
+        "Go TO " + block.inputs.X[1][1] + " " + block.inputs.Y[1][1] + "\n";
       break;
     case "motion_changexby":
       result += "CHANGE X " + block.inputs.DX[1][1] + "\n";

@@ -2,13 +2,13 @@
 function getS2sOperant(operent) {
   switch (operent.toLowerCase()) {
     case 'mousex':
-      return mousePosition.x;
+      return 'mousePosition.x';
     case 'mousey':
-      return mousePosition.y;
+      return 'mousePosition.y';
     case 'xposition':
-      return avatar.x;
+      return 'avatar.x';
     case 'yposition':
-      return avatar.y;
+      return 'avatar.y';
   }
 }
 function parseS2sOperator(operator) {

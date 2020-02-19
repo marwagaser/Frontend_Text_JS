@@ -33,6 +33,7 @@ class S2sParser {
           break;
         // CHANGE avatar X, Y cases
         case "CHANGE":
+          console.log(commandParams, commandParams[1].toLowerCase(), commandParams[2]);
           js += `avatar.${commandParams[1].toLowerCase()} += ${
             commandParams[2]
             };
