@@ -1,5 +1,7 @@
 let lastKeyPress = {};
 let lastMouseClick = {};
+let mousePosition = {};
+document.onmousemove = mouseMoveHandler;
 document.addEventListener("onkeydown", event => {
     lastKeyPress = {
         code : event.code,
@@ -15,3 +17,9 @@ document.addEventListener('mousedown', event => {
     }
 });
 
+function mouseMoveHandler(event) {
+    mousePosition = {
+        x: event.pageX,
+        y: event.pageY
+    };
+  };
