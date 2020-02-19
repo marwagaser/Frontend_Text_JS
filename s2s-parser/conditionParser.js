@@ -7,7 +7,6 @@ const parseCondition = function (commandParams) {
       value += 'lastMouseClick != null && ' + new Date().getTime() + ' - ' + lastMouseClick.timestamp.getTime() + ' < ' + 200;
   } else {
     if (commandParams[1] == "Key") {
-      console.log('in key pressed: ', lastKeyPress);
       
       var theKey = commandParams[3];
         if (!(theKey == "space") && !(theKey == "any")) {

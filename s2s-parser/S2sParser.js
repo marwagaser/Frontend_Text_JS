@@ -17,7 +17,7 @@ class S2sParser {
     // Counter used for enumerating different possible values of loop indices
     // for example after each loop we construct a new variable name index1, index2, index3, etc.
     let indexCounter = 1;
-    
+
     while (currentCommand != null) {
       let commandParams = currentCommand.split(" ");
       switch (commandParams[0]) {
@@ -86,45 +86,51 @@ await sleep(33);
 `;
   }
 
-  handleTriggers(command){
+  handleTriggers(command) {
     if (command === "IFGREENFLAGCLICKED") {
       this.flagTriggered = true;
-    }else{
-      if(command.endsWith('PRESSED')){
+    } else {
+      if (command.endsWith('PRESSED')) {
         this.keyTriggered = command[1];
-      }else{
+      } else {
         throw new Error("Could not find an event to trigger input code. Either IFGREENFLAGCLICKED or a key press is necessary in the beginning");
       }
     }
   }
 
   parseCondition(commandParams) {
-    let value = 'if ( ';
+    let value = `await sleep(33);\n if ( `;
     let pointer;
-
-    if(commandParams[1]+ commandParams[2] == 'MouseDown'){
-        value += 'lastMouseClick != null && ' + new Date().getTime() + ' - ' + lastMouseClick.timestamp.getTime() + ' < ' + 200;
+    if (commandParams[1] + commandParams[2] == 'MouseDown') {
+      value += 'lastMouseClick != null && ' + new Date().getTime() + ' - ' + lastMouseClick.timestamp.getTime() + ' < ' + 200;
     } else {
-      if (commandParams[1] == "Key") {        
+      if (commandParams[1] == "Key") {
         var theKey = commandParams[3];
-          if (!(theKey == "space") && !(theKey == "any")) {
-            value +=
-              "key != null && key == " +
-              theKey;
-          } else if (theKey == "space") {
-            value +=
-              'key != null && key == " " && captureTime != null ';
-          }
+        if (commandParams[4] != null && commandParams[4].startsWith('arr')) {
+          theKey = commandParams[3] + ' ' + commandParams[4];
+        }
+
+        if (!(theKey == "space") && !(theKey == "any")) {
+          value +=
+            "lastKeyPress != null &&  new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  1000 && lastKeyPress.code == " +
+            `"${theKey}"`;
+        } else if (theKey == "space") {
+          value +=
+            'lastKeyPress != null && new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  1000 && lastKeyPress.code == "space"';
+        } else if (theKey == "any") {
+          value +=
+            "lastKeyPress != null && new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  1000";
+        }
       } else {
-        if(commandParams[1].startsWith('Mouse')| commandParams[1].startsWith('Y') |commandParams[1].startsWith('X')){
-          value += this.getOperant(commandParams[1]+commandParams[2]) + this.parseOperator(commandParams[3]);
+        if (commandParams[1].startsWith('Mouse') | commandParams[1].startsWith('Y') | commandParams[1].startsWith('X')) {
+          value += this.getOperant(commandParams[1] + commandParams[2]) + this.parseOperator(commandParams[3]);
           pointer = 4;
         } else {
           value += commandParams[1] + this.parseOperator(commandParams[2]);
           pointer = 3;
         }
-        if (commandParams[pointer].startsWith('Mouse')| commandParams[pointer].startsWith('Y') |commandParams[pointer].startsWith('X')){
-          value += this.getOperant(commandParams[pointer]+commandParams[pointer+1]);
+        if (commandParams[pointer].startsWith('Mouse') | commandParams[pointer].startsWith('Y') | commandParams[pointer].startsWith('X')) {
+          value += this.getOperant(commandParams[pointer] + commandParams[pointer + 1]);
         } else {
           value += commandParams[pointer];
         }
@@ -135,7 +141,7 @@ await sleep(33);
     return value;
   }
 
-  getOperant(operent){
+  getOperant(operent) {
     switch (operent) {
       case 'MouseX':
         return mousePosition.x;
@@ -147,8 +153,8 @@ await sleep(33);
         return avatar.y;
     }
   }
-  parseOperator(operator){
-    if (operator == '='){
+  parseOperator(operator) {
+    if (operator == '=') {
       return ' == ';
     } else {
       return ' ' + operator + ' ';

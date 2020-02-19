@@ -1,6 +1,5 @@
 {
     "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "prettier.singleQuote" : "true"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    }
 }
