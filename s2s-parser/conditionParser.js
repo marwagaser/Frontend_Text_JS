@@ -1,13 +1,13 @@
 
 function getS2sOperant(operent) {
-  switch (operent) {
-    case 'MouseX':
+  switch (operent.toLowerCase()) {
+    case 'mousex':
       return mousePosition.x;
-    case 'MouseY':
+    case 'mousey':
       return mousePosition.y;
-    case 'Xposition':
+    case 'xposition':
       return avatar.x;
-    case 'Yposition':
+    case 'yposition':
       return avatar.y;
   }
 }
@@ -41,7 +41,9 @@ function parseS2sCondition(commandParams) {
           'lastKeyPress != null && new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  200 && !lastKeyPress.pressed &&  setKeyEvent(lastKeyPress)';
       }
     } else {
-      if (commandParams[1].startsWith('Mouse')) {
+      if (commandParams[1].startsWith('Touching')) {
+        value += `areColliding(avatar, apple) && apple.color === "${commandParams[3]}"`
+      } else {
         if (commandParams[1].startsWith('Mouse') | commandParams[1].startsWith('Y') | commandParams[1].startsWith('X')) {
           value += getS2sOperant(commandParams[1] + commandParams[2]) + parseS2sOperator(commandParams[3]);
           pointer = 4;
@@ -53,10 +55,6 @@ function parseS2sCondition(commandParams) {
           value += getS2sOperant(commandParams[pointer] + commandParams[pointer + 1]);
         } else {
           value += commandParams[pointer];
-        }
-      } else {
-        if (commandParams[1].startsWith('Touching')) {
-          value += `areColliding(avatar, apple) && apple.color === "${commandParams[3]}"`
         }
       }
     }
