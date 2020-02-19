@@ -22,7 +22,7 @@ function parseS2sCondition(commandParams) {
   let value = `await sleep(33);\n if ( `;
   let pointer;
   if (commandParams[1] + commandParams[2] == 'MouseDown') {
-    value += 'lastMouseClick != null && ' + new Date().getTime() + ' - ' + lastMouseClick.timestamp.getTime() + ' < ' + 200;
+    value += 'lastMouseClick != null && new Date().getTime() - lastMouseClick.timestamp.getTime() < 200 && !lastMouseClick.clicked && setMouseEvent(lastMouseClick)';
   } else {
     if (commandParams[1] == "Key") {
       var theKey = commandParams[3];
@@ -32,14 +32,13 @@ function parseS2sCondition(commandParams) {
 
       if (!(theKey == "space") && !(theKey == "any")) {
         value +=
-          "lastKeyPress != null &&  new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  1000 && lastKeyPress.code == " +
-          `"${theKey}"`;
+          `lastKeyPress != null &&  new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  200 && lastKeyPress.code == ${theKey} && !lastKeyPress.pressed && setKeyEvent(lastKeyPress)`;
       } else if (theKey == "space") {
         value +=
-          'lastKeyPress != null && new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  1000 && lastKeyPress.code == "space"';
+          'lastKeyPress != null && new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  200 && lastKeyPress.code == "space" && !lastKeyPress.pressed && setKeyEvent(lastKeyPress)';
       } else if (theKey == "any") {
         value +=
-          "lastKeyPress != null && new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  1000";
+          'lastKeyPress != null && new Date().getTime()  -  lastKeyPress.timestamp.getTime() <  200 && !lastKeyPress.pressed &&  setKeyEvent(lastKeyPress)';
       }
     } else {
       if (commandParams[1].startsWith('Mouse') | commandParams[1].startsWith('Y') | commandParams[1].startsWith('X')) {
@@ -59,4 +58,16 @@ function parseS2sCondition(commandParams) {
   value += ' )';
 
   return value;
+}
+
+
+function setKeyEvent(keyObject) {
+  console.log(keyObject);
+  keyObject.pressed = true;
+  return true;
+}
+
+function setMouseEvent(mouseObject) {
+  mouseObject.clicked = true;
+  return true;
 }

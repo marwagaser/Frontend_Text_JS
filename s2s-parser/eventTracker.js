@@ -28,7 +28,8 @@ document.addEventListener("keydown", event => {
 
     lastKeyPress = {
         code: c,
-        timestamp: new Date()
+        timestamp: new Date(),
+        pressed: false
     }
 });
 
@@ -36,7 +37,8 @@ document.addEventListener('mousedown', event => {
     lastMouseClick = {
         x: event.clientX,
         y: event.clientY,
-        timestamp: new Date()
+        timestamp: new Date(),
+        clicked: false
     }
 });
 
