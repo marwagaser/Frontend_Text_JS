@@ -12,7 +12,7 @@ Start -> 'IFGREENFLAGCLICKED\n' | 'IF' key 'PRESSED\n'
 Stm ->  'MOVE ' SNUM '\n'| 
         'TURN ' SNUM '\n'|
         'POINT ' SNUM '\n'|
-        'GO TO X,Y ' SNUM' 'SNUM '\n'|
+        'GO TO ' SNUM' 'SNUM '\n'|
         'CHANGE X ' SNUM '\n'|
         'CHANGE Y ' SNUM '\n'|
         'SET X ' SNUM '\n'|
