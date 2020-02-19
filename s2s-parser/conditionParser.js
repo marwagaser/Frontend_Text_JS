@@ -42,7 +42,7 @@ function parseS2sCondition(commandParams) {
       }
     } else {
       if (commandParams[1].startsWith('Mouse')) {
-        if (commandParams[1].startsWith('Y') | commandParams[1].startsWith('X')) {
+        if (commandParams[1].startsWith('Mouse') | commandParams[1].startsWith('Y') | commandParams[1].startsWith('X')) {
           value += getS2sOperant(commandParams[1] + commandParams[2]) + parseS2sOperator(commandParams[3]);
           pointer = 4;
         } else {
