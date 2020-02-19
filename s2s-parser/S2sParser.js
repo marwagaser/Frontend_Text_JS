@@ -47,7 +47,11 @@ await sleep(33);
 `;
           break;
         case "GO":
-          js += this.parseGoCommand(commandParams);
+          js += `avatar.x = ${commandParams[3]};
+avatar.y = ${commandParams[4]};
+stage.update();
+await sleep(33);
+`;
           break;
         // Basic animation cases
         case "MOVE":
@@ -90,16 +94,6 @@ await sleep(33);
     console.log(js);
     return js;
 
-  }
-
-
-  parseGoCommand(commandParams) {
-    let params = commandParams[3].split(",");
-    return `avatar.x = ${params[0]};
-avatar.y = ${params[1]};
-stage.update();
-await sleep(33);
-`;
   }
 
   handleTriggers(command) {
