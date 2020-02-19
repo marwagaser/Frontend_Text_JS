@@ -67,6 +67,9 @@ await sleep(33);
         case "IF":
           parseCondition(commandParams);
           break;
+        case "ELSE":
+          js+='else'
+          break;
       }
       currentCommand = this.commands.shift();
     }
